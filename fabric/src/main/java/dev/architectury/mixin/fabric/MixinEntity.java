@@ -36,6 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinEntity {
     @Inject(method = "hurtClient", at = @At("HEAD"), cancellable = true)
     private void hurtClient(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+        if (!((Object) this instanceof LivingEntity)) return;
         if ((Object) this instanceof Player) return;
         if (EntityEvent.LIVING_HURT.invoker().hurt((LivingEntity) (Object) this, damageSource, 0).isFalse()) {
             cir.setReturnValue(false);
