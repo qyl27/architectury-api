@@ -8,7 +8,7 @@ on:
       - '**/src/**'
       - '.github/**'
     branches:
-      - "1.21.2"
+      - "1.21.4"
   workflow_dispatch:
     inputs:
       norelease:

@@ -22,7 +22,6 @@ package dev.architectury.test.tags;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.test.TestMod;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +37,7 @@ public class TestTags {
         
         BlockEvent.BREAK.register((world, pos, state, player, xp) -> {
             if (player != null && !world.isClientSide() && (state.is(heartParticles) || state.is(heartParticles2))) {
-                ((ServerLevel) world).sendParticles(player, ParticleTypes.HEART, false, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 10, 0.0, 0.0, 0.0, 0.0);
+                ((ServerLevel) world).sendParticles(player, ParticleTypes.HEART, false, false, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 10, 0.0, 0.0, 0.0, 0.0);
             }
             
             return EventResult.pass();

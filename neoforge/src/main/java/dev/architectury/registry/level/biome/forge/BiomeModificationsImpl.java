@@ -35,6 +35,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -397,7 +398,7 @@ public class BiomeModificationsImpl {
         }
         
         @Override
-        public Optional<Music> getBackgroundMusic() {
+        public Optional<SimpleWeightedRandomList<Music>> getBackgroundMusic() {
             return builder.backgroundMusic;
         }
         
@@ -468,7 +469,7 @@ public class BiomeModificationsImpl {
         }
         
         @Override
-        public Mutable setBackgroundMusic(@Nullable Music music) {
+        public Mutable setBackgroundMusic(@Nullable SimpleWeightedRandomList<Music> music) {
             builder.backgroundMusic = Optional.ofNullable(music);
             return this;
         }

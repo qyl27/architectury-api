@@ -21,8 +21,6 @@ package dev.architectury.registry.client.rendering.fabric;
 
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.color.block.BlockColor;
-import net.minecraft.client.color.item.ItemColor;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import java.util.Objects;
@@ -30,23 +28,9 @@ import java.util.function.Supplier;
 
 public class ColorHandlerRegistryImpl {
     @SafeVarargs
-    public static void registerItemColors(ItemColor itemColor, Supplier<? extends ItemLike>... items) {
-        Objects.requireNonNull(itemColor, "color is null!");
-        ColorProviderRegistry.ITEM.register(itemColor, unpackItems(items));
-    }
-    
-    @SafeVarargs
     public static void registerBlockColors(BlockColor blockColor, Supplier<? extends Block>... blocks) {
         Objects.requireNonNull(blockColor, "color is null!");
         ColorProviderRegistry.BLOCK.register(blockColor, unpackBlocks(blocks));
-    }
-    
-    private static ItemLike[] unpackItems(Supplier<? extends ItemLike>[] items) {
-        var array = new ItemLike[items.length];
-        for (var i = 0; i < items.length; i++) {
-            array[i] = Objects.requireNonNull(items[i].get());
-        }
-        return array;
     }
     
     private static Block[] unpackBlocks(Supplier<? extends Block>[] blocks) {

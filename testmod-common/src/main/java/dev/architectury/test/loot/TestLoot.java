@@ -25,11 +25,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 
+import java.util.Optional;
+
 public class TestLoot {
     public static void init() {
         LootEvent.MODIFY_LOOT_TABLE.register((key, context, builtin) -> {
             // Check that the loot table is dirt and built-in
-            if (builtin && Blocks.DIRT.getLootTable().equals(key)) {
+            if (builtin && Blocks.DIRT.getLootTable().equals(Optional.ofNullable(key))) {
                 // Create a loot pool with a single item entry of Items.DIAMOND
                 LootPool.Builder pool = LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND));
                 context.addPool(pool);

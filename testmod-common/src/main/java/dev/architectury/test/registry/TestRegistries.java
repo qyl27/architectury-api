@@ -127,10 +127,10 @@ public class TestRegistries {
                 .setId(id(Registries.ITEM, "test_edible")));
     });
     public static final RegistrySupplier<Item> TEST_SPAWN_EGG = ITEMS.register("test_spawn_egg", () ->
-            new ArchitecturySpawnEggItem(TestRegistries.TEST_ENTITY, 0xFF000000, 0xFFFFFFFF,
+            new ArchitecturySpawnEggItem(TestRegistries.TEST_ENTITY,
                     new Item.Properties().arch$tab(TestRegistries.TEST_TAB).setId(id(Registries.ITEM, "test_spawn_egg"))));
     public static final RegistrySupplier<Item> TEST_SPAWN_EGG_2 = ITEMS.register("test_spawn_egg_2", () ->
-            new ArchitecturySpawnEggItem(TestRegistries.TEST_ENTITY_2, 0xFFFFFFFF, 0xFF000000,
+            new ArchitecturySpawnEggItem(TestRegistries.TEST_ENTITY_2,
                     new Item.Properties().arch$tab(TestRegistries.TEST_TAB).setId(id(Registries.ITEM, "test_spawn_egg_2"))));
     
     public static final RegistrySupplier<Item> TEST_FLUID_BUCKET = ITEMS.register("test_fluid_bucket", () -> {

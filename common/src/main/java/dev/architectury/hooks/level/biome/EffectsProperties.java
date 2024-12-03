@@ -22,6 +22,7 @@ package dev.architectury.hooks.level.biome;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.level.biome.AmbientAdditionsSettings;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
 import net.minecraft.world.level.biome.AmbientParticleSettings;
@@ -54,7 +55,7 @@ public interface EffectsProperties {
     
     Optional<AmbientAdditionsSettings> getAmbientAdditionsSound();
     
-    Optional<Music> getBackgroundMusic();
+    Optional<SimpleWeightedRandomList<Music>> getBackgroundMusic();
     
     interface Mutable extends EffectsProperties {
         EffectsProperties.Mutable setFogColor(int color);
@@ -79,6 +80,6 @@ public interface EffectsProperties {
         
         EffectsProperties.Mutable setAmbientAdditionsSound(@Nullable AmbientAdditionsSettings settings);
         
-        EffectsProperties.Mutable setBackgroundMusic(@Nullable Music music);
+        EffectsProperties.Mutable setBackgroundMusic(@Nullable SimpleWeightedRandomList<Music> music);
     }
 }

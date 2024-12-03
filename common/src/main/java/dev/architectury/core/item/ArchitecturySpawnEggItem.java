@@ -21,6 +21,7 @@ package dev.architectury.core.item;
 
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
@@ -47,7 +48,7 @@ public class ArchitecturySpawnEggItem extends SpawnEggItem {
             @Override
             public ItemStack execute(BlockSource source, ItemStack stack) {
                 Direction direction = source.state().getValue(DispenserBlock.FACING);
-                EntityType<?> entityType = ((SpawnEggItem) stack.getItem()).getType(stack);
+                EntityType<?> entityType = ((SpawnEggItem) stack.getItem()).getType(source.level().registryAccess(), stack);
                 
                 try {
                     entityType.spawn(source.level(), stack, null, source.pos().relative(direction), EntitySpawnReason.DISPENSER, direction != Direction.UP, false);
@@ -63,13 +64,13 @@ public class ArchitecturySpawnEggItem extends SpawnEggItem {
         };
     }
     
-    public ArchitecturySpawnEggItem(RegistrySupplier<? extends EntityType<? extends Mob>> entityType, int backgroundColor, int highlightColor, Properties properties) {
-        this(entityType, backgroundColor, highlightColor, properties, createDispenseItemBehavior());
+    public ArchitecturySpawnEggItem(RegistrySupplier<? extends EntityType<? extends Mob>> entityType, Properties properties) {
+        this(entityType, properties, createDispenseItemBehavior());
     }
     
-    public ArchitecturySpawnEggItem(RegistrySupplier<? extends EntityType<? extends Mob>> entityType, int backgroundColor, int highlightColor, Properties properties,
+    public ArchitecturySpawnEggItem(RegistrySupplier<? extends EntityType<? extends Mob>> entityType, Properties properties,
                                     @Nullable DispenseItemBehavior dispenseItemBehavior) {
-        super(null, backgroundColor, highlightColor, properties);
+        super(null, properties);
         this.entityType = Objects.requireNonNull(entityType, "entityType");
         SpawnEggItem.BY_ID.remove(null);
         entityType.listen(type -> {
@@ -85,8 +86,8 @@ public class ArchitecturySpawnEggItem extends SpawnEggItem {
     }
     
     @Override
-    public EntityType<?> getType(ItemStack itemStack) {
-        EntityType<?> type = super.getType(itemStack);
+    public EntityType<?> getType(HolderLookup.Provider provider, ItemStack itemStack) {
+        EntityType<?> type = super.getType(provider, itemStack);
         return type == null ? entityType.get() : type;
     }
 }
